@@ -250,7 +250,7 @@ async def play(c: Client, m: Message):
                 await add_active_chat(chat_id)
                 add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
-  #  else:
+        else:
         if len(m.command) < 2:
          await m.reply_photo(
                      photo=f"{CMD_IMG}",
