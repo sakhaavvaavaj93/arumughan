@@ -9,6 +9,7 @@ python-dotenv
 dnspython
 gitpython
 asgiref
+asyncio
 aiofiles
 aiohttp
 requests
