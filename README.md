@@ -2,7 +2,7 @@
 
 ### ᴢᴀɪᴅ ᴠᴄ ᴘʟᴀʏᴇʀ ɪꜱ ᴀ ᴛᴇʟᴇɢʀᴀᴍ ᴘʀᴏᴊᴇᴄᴛ ʙᴀꜱᴇᴅ ᴏɴ ᴘʏʀᴏɢʀᴀᴍ ꜰᴏʀ ᴘʟᴀʏ ᴍᴜꜱɪᴄꜱ ɪɴ ᴠᴄ ᴄʜᴀᴛꜱ...
 
-<p align="center"><a href="https://t.me/kk_kovilakam"><img src="" width="300"></a></p>
+<p align="center"><a href="https://t.me/kk_kovilakam"><img src="https://telegra.ph/file/525ef6dcee7af93441c60.jpg" width="300"></a></p>
 
 <h3>ʀᴇQᴜɪʀᴇᴍᴇɴᴛꜱ 📝</h3>
 
