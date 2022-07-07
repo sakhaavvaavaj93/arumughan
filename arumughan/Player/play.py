@@ -85,6 +85,69 @@ def convert_seconds(seconds):
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+
+@bot.on_callback_query()
+async def callbacks(_, cq: CallbackQuery):
+    user_id = cq.from_user.id
+    try:
+        user = await cq.message.chat.get_member(user_id)
+        admin_strings = ("creator", "administrator")
+        if user.status not in admin_strings:
+            is_admin = False
+        else:
+            is_admin = True
+    except ValueError:
+        is_admin = True        
+    if not is_admin:
+        return await cq.answer("You aren't an admin.")   
+    chat_id = cq.message.chat.id
+    data = cq.data
+    if data == "close":
+        return await cq.message.delete()
+    if not chat_id in QUEUE:
+        return await cq.answer("Nothing is playing.")
+
+    if data == "pause":
+        try:
+            await app.pause_stream(chat_id)
+            await cq.answer("Paused streaming.")
+        except:
+            await cq.answer("Nothing is playing.")
+      
+    elif data == "resume":
+        try:
+            await app.resume_stream(chat_id)
+            await cq.answer("Resumed streaming.")
+        except:
+            await cq.answer("Nothing is playing.")   
+
+    elif data == "stop":
+        await app.leave_group_call(chat_id)
+        clear_queue(chat_id)
+        await cq.answer("Stopped streaming.")  
+
+    elif data == "mute":
+        try:
+            await app.mute_stream(chat_id)
+            await cq.answer("Muted streaming.")
+        except:
+            await cq.answer("Nothing is playing.")
+            
+    elif data == "unmute":
+        try:
+            await app.unmute_stream(chat_id)
+            await cq.answer("Unmuted streaming.")
+        except:
+            await cq.answer("Nothing is playing.")
+            
+    elif data == "skip":
+        op = await skip_current_song(chat_id)
+        if op == 0:
+            await cq.answer("Nothing in the queue to skip.")
+        elif op == 1:
+            await cq.answer("Empty queue, stopped streaming.")
+        else:
+            await cq.answer("Skipped.")
     
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 @AssistantAdd
@@ -304,22 +367,30 @@ async def play(c: Client, m: Message):
                         except Exception as ep:
                             await suhu.delete()
                             await m.reply_text(f"💬 error: `{ep}`")
-                       elif type_ == "skip":
-                         if qeue:
-                               qeue.pop(0)
-                         if chet_id not in callsmusic.active_chats:
-                            await cb.answer("Chat is not connected!", show_alert=True)
-                        else:
-                            queues.task_done(chet_id)
-                         if queues.is_empty(chet_id):
-                            callsmusic.stop(chet_id)
-                            await cb.message.edit("- No More Playlist..\n- Leaving VC!")
-                        else:
-                            await callsmusic.set_stream(
-                            chet_id, queues.get(chet_id)["file"]
-                            )
-                            await cb.answer.reply_text("✅ <b>Skipped</b>")
-                            await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
-                            await cb.message.reply_text(
-                            f"- Skipped track\n- Now Playing **{qeue[0][0]}**"
-                            )
+@bot.on_message(filters.command("skip") & filters.group)
+@is_admin
+async def skip(_, message):
+    await message.delete()
+    chat_id = message.chat.id
+    if len(message.command) < 2:
+        op = await skip_current_song(chat_id)
+        if op == 0:
+            await message.reply_text("❗️Nothing in the queue to skip.")
+        elif op == 1:
+            await message.reply_text("❗️Empty queue, stopped streaming.")
+    else:
+        skip = message.text.split(None, 1)[1]
+        out = "🗑 <b>Removed the following song(s) from the queue:</b> \n"
+        if chat_id in QUEUE:
+            items = [int(x) for x in skip.split(" ") if x.isdigit()]
+            items.sort(reverse=True)
+            for x in items:
+                if x == 0:
+                    pass
+                else:
+                    hm = await skip_item(chat_id, x)
+                    if hm == 0:
+                        pass
+                    else:
+                        out = out + "\n" + f"<b>♯ {x}</b> - {hm}"
+            await message.reply_text(out)
