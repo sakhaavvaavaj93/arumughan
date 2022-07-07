@@ -1,4 +1,5 @@
 # @kk_kovilakam
+from config import SUDO_USERS
 import sira
 import io
 from os import path
@@ -32,6 +33,7 @@ from arumughan.Client.assistant import get_assistant_details, random_assistant
 from arumughan.Client.Joiner import AssistantAdd
 from arumughan.Database.active import *
 from arumughan.Database.dbchat import add_served_chat, is_served_chat
+from arumughan.tgcalls import tgcalls
 
 import yt_dlp
 import yt_dlp
@@ -313,7 +315,7 @@ async def play(c: Client, m: Message):
     & ~ filters.edited
 )
 @errors
-@admins_only
+@AssistantAdd
 async def skip(client: Client, message: Message):
     chat_id = message.chat.id
 
