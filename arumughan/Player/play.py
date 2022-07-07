@@ -256,9 +256,10 @@ async def play(c: Client, m: Message):
                 await m.reply_text(
                     f"🎶[{songname}]({link})🎻"
                   )
-         except Exception as e:
-                await suhu.delete()
-                await m.reply_text(f"🚫 error:\n\n» {e}")
+                  except Exception as e:
+                    await suhu.delete()
+                    await m.reply_text(f"🚫 error:
+                      \n\n» {e}")
        else:
             if len(m.command) < 2:
             await m.reply_photo(
