@@ -304,14 +304,14 @@ async def play(c: Client, m: Message):
                         except Exception as ep:
                             await suhu.delete()
                             await m.reply_text(f"💬 error: `{ep}`")
-                            elif type_ == "skip":
-                            if qeue:
+                       elif type_ == "skip":
+                         if qeue:
                                qeue.pop(0)
-                            if chet_id not in callsmusic.active_chats:
+                         if chet_id not in callsmusic.active_chats:
                             await cb.answer("Chat is not connected!", show_alert=True)
                         else:
                             queues.task_done(chet_id)
-                            if queues.is_empty(chet_id):
+                         if queues.is_empty(chet_id):
                             callsmusic.stop(chet_id)
                             await cb.message.edit("- No More Playlist..\n- Leaving VC!")
                         else:
