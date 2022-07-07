@@ -323,15 +323,3 @@ async def play(c: Client, m: Message):
                 await cb.message.reply_text(
                     f"- Skipped track\n- Now Playing **{qeue[0][0]}**"
                 )
-
-       else:
-           if chet_id in callsmusic.active_chats:
-            try:
-               queues.clear(chet_id)
-            except QueueEmpty:
-                pass
-
-            await callsmusic.stop(chet_id)
-            await cb.message.edit("Successfully Left the Chat!")
-       else:
-            await cb.answer("Chat is not connected!", show_alert=True
