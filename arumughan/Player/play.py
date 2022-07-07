@@ -304,22 +304,22 @@ async def play(c: Client, m: Message):
                         except Exception as ep:
                             await suhu.delete()
                             await m.reply_text(f"💬 error: `{ep}`")
-                   elif type_ == "skip":
-        if qeue:
-            qeue.pop(0)
-        if chet_id not in callsmusic.active_chats:
-            await cb.answer("Chat is not connected!", show_alert=True)
-        else:
-            queues.task_done(chet_id)
-            if queues.is_empty(chet_id):
-                callsmusic.stop(chet_id)
-                await cb.message.edit("- No More Playlist..\n- Leaving VC!")
-            else:
-                await callsmusic.set_stream(
-                    chet_id, queues.get(chet_id)["file"]
-                )
-                await cb.answer.reply_text("✅ <b>Skipped</b>")
-                await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
-                await cb.message.reply_text(
-                    f"- Skipped track\n- Now Playing **{qeue[0][0]}**"
-                )
+                            elif type_ == "skip":
+                            if qeue:
+                               qeue.pop(0)
+                            if chet_id not in callsmusic.active_chats:
+                            await cb.answer("Chat is not connected!", show_alert=True)
+                        else:
+                            queues.task_done(chet_id)
+                            if queues.is_empty(chet_id):
+                            callsmusic.stop(chet_id)
+                            await cb.message.edit("- No More Playlist..\n- Leaving VC!")
+                       else:
+                            await callsmusic.set_stream(
+                            chet_id, queues.get(chet_id)["file"]
+                            )
+                            await cb.answer.reply_text("✅ <b>Skipped</b>")
+                            await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
+                            await cb.message.reply_text(
+                            f"- Skipped track\n- Now Playing **{qeue[0][0]}**"
+                            )
