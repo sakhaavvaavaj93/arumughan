@@ -32,7 +32,7 @@ from arumughan.Client.assistant import get_assistant_details, random_assistant
 from arumughan.Client.Joiner import AssistantAdd
 from arumughan.Database.active import *
 from arumughan.Database.dbchat import add_served_chat, is_served_chat
-from arumughan.tgcalls import tgcalls
+
 
 import yt_dlp
 import yt_dlp
