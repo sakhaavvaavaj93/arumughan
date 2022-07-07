@@ -35,20 +35,6 @@ from arumughan.Database.dbchat import add_served_chat, is_served_chat
 import yt_dlp
 import yt_dlp
 
-ZAID_IMGS = [
-    "Process/ImageFont/LightGreen.png",
-    "Process/ImageFont/Red.png",
-    "Process/ImageFont/Black.png",
-    "Process/ImageFont/Blue.png",
-    "Process/ImageFont/Grey.png",
-    "Process/ImageFont/Green.png",
-    "Process/ImageFont/Lightblue.png",
-    "Process/ImageFont/Lightred.png",
-    "Process/ImageFont/Purple.png",
-    "Process/ImageFont/foreground.png",
-]
-
-
 
 def ytsearch(query):
     try:
@@ -111,35 +97,6 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 
-async def generate_cover(thumbnail, title, userid, ctitle):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(thumbnail) as resp:
-            if resp.status == 200:
-                f = await aiofiles.open(f"thumb{userid}.png", mode="wb")
-                await f.write(await resp.read())
-                await f.close()
-    image1 = Image.open(f"thumb{userid}.png")
-    images = choice(ZAID_IMGS)
-    image2 = Image.open(images)
-    image3 = changeImageSize(1280, 720, image1)
-    image4 = changeImageSize(1280, 720, image2)
-    image5 = image3.convert("RGBA")
-    image6 = image4.convert("RGBA")
-    Image.alpha_composite(image5, image6).save(f"temp{userid}.png")
-    img = Image.open(f"temp{userid}.png")
-    draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("Process/ImageFont/finalfont.ttf", 60)
-    font2 = ImageFont.truetype("Process/ImageFont/finalfont.ttf", 70)     
-    draw.text((20, 45), f"{title[:30]}...", fill= "white", stroke_width = 1, stroke_fill="white", font=font2)
-    draw.text((120, 595), f"PlAYING ON: {ctitle[:20]}...", fill="white", stroke_width = 1, stroke_fill="white" ,font=font)
-    img.save(f"final{userid}.png")
-    os.remove(f"temp{userid}.png")
-    os.remove(f"thumb{userid}.png") 
-    final = f"final{userid}.png"
-    return final
-
-
-
     
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 @AssistantAdd
@@ -149,19 +106,7 @@ async def play(c: Client, m: Message):
     chat_id = m.chat.id
     _assistant = await get_assistant(chat_id, "assistant")
     assistant = _assistant["saveassistant"]
-    keyboard = InlineKeyboardMarkup(
-                  [[
-                      InlineKeyboardButton("⏹", callback_data="cbstop"),
-                      InlineKeyboardButton("⏸", callback_data="cbpause"),
-                      InlineKeyboardButton("⏭️", "skip"),
-                      InlineKeyboardButton("▶️", callback_data="cbresume"),
-                  ],[
-                      InlineKeyboardButton(text="✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
-                      InlineKeyboardButton(text="📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"),
-                  ],[
-                      InlineKeyboardButton("🗑", callback_data="cls")],
-                  ]
-             )
+    
     if m.sender_chat:
         return await m.reply_text("you're an __Anonymous__ Admin !\n\n» revert back to user account from admin rights.")
     try:
@@ -205,10 +150,8 @@ async def play(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
-                await m.reply_photo(
-                    photo=f"{QUE_IMG}",
-                    caption=f"💡 **Track added to queue »** `{pos}`\n\n🏷 **Name:** [{songname}]({link}) | `music`\n💭 **Chat:** `{chat_id}`\n🎧 **Request by:** {m.from_user.mention()}",
-                    reply_markup=keyboard,
+                await m.reply_text(
+                    f"💡 **Track added to queue »** `{pos}`",
                 )
             else:
              try:
@@ -256,10 +199,8 @@ async def play(c: Client, m: Message):
                 add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                await m.reply_photo(
-                    photo=f"{PLAY_IMG}",
-                    caption=f"🏷 **Name:** [{songname}]({link})\n💭 **Chat:** `{chat_id}`\n💡 **Status:** `Playing`\n🎧 **Request by:** {requester}\n📹 **Stream type:** `Music`",
-                    reply_markup=keyboard,
+                await m.reply_text(
+                    f"🏷 **Name:** [{songname}]({link})",
                 )
              except Exception as e:
                 await suhu.delete()
@@ -310,10 +251,8 @@ async def play(c: Client, m: Message):
                         requester = (
                             f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                         )
-                        await m.reply_photo(
-                            photo=queuem,
-                            caption=f"💡 **Track added to queue »** `{pos}`\n\n🏷 **Name:** [{songname[:22]}]({url}) | `music`\n**⏱ Duration:** `{duration}`\n🎧 **Request by:** {requester}",
-                            reply_markup=keyboard,
+                        await m.reply_text(
+                            f"💡 **Track added to queue »** `{pos}`",
                         )
                     else:
                         try:
@@ -372,10 +311,8 @@ async def play(c: Client, m: Message):
                             add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
                             await suhu.delete()
                             requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-                            await m.reply_photo(
-                                photo=image,
-                                caption=f"🏷 **Name:** [{songname[:22]}]({url})\n**⏱ Duration:** `{duration}`\n💡 **Status:** `Playing`\n🎧 **Request by:** {requester}",
-                                reply_markup=keyboard,
+                            await m.reply_text(
+                                f"🏷 **Name:** [{songname[:22]}]({url})",
                             )
                         except Exception as ep:
                             await suhu.delete()
