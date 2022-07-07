@@ -188,7 +188,7 @@ async def play(c: Client, m: Message):
                 await suhu.delete()
                 requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                 await m.reply_text(
-                    f"🏷 **Name:** [{songname}]({link})",
+                    f"Playing**[{songname}]",
                 )
              except Exception as e:
                 await suhu.delete()
