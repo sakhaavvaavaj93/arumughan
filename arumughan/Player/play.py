@@ -1,6 +1,5 @@
 # @kk_kovilakam
 from config import SUDO_USERS
-import sira
 import io
 from os import path
 from typing import Callable
@@ -19,7 +18,7 @@ from arumughan.fonts import CHAT_TITLE
 from PIL import Image, ImageDraw, ImageFont
 from config import ASSISTANT_NAME, BOT_USERNAME, QUE_IMG, CMD_IMG, PLAY_IMG, UPDATES_CHANNEL, GROUP_SUPPORT
 from arumughan.filters import command, other_filters
-from sira.queues import QUEUE, add_to_queue
+from arumughan.queues import QUEUE, add_to_queue
 from arumughan.main import call_py, Test as user, call_py2, call_py3, call_py4, call_py5
 from arumughan.utils import bash
 from arumughan.main import bot as Client
@@ -309,24 +308,3 @@ async def play(c: Client, m: Message):
                             await suhu.delete()
                             await m.reply_text(f"💬 error: `{ep}`")
 
-@Client.on_message(
-    filters.command(["skip", "next"])
-    & filters.group
-    & ~ filters.edited
-)
-@errors
-@AssistantAdd
-async def skip(client: Client, message: Message):
-    chat_id = message.chat.id
-
-    sira.task_done(chat_id)
-    await message.reply_text("Processing")
-    if sira.is_empty(chat_id):
-        tgcalls.pytgcalls.leave_group_call(chat_id)
-        await message.reply_text("✯Nothing in queue")
-    else:
-        tgcalls.pytgcalls.change_stream(
-            chat_id, sira.get(chat_id)["file_path"]
-        )
-
-        await message.reply_text("✯Skipped.")
