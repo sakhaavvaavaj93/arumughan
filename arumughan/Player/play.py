@@ -9,28 +9,28 @@ import re
 from random import choice
 import aiofiles
 import aiohttp
-from Zaid.converter import convert
+from arumughan.converter import convert
 from Process.design.thumbnail import *
 import ffmpeg
 import requests
-from Zaid.fonts import CHAT_TITLE
+from arumughan.fonts import CHAT_TITLE
 from PIL import Image, ImageDraw, ImageFont
 from config import ASSISTANT_NAME, BOT_USERNAME, QUE_IMG, CMD_IMG, PLAY_IMG, UPDATES_CHANNEL, GROUP_SUPPORT
-from Zaid.filters import command, other_filters
-from Zaid.queues import QUEUE, add_to_queue
-from Zaid.main import call_py, Test as user, call_py2, call_py3, call_py4, call_py5
-from Zaid.utils import bash
-from Zaid.main import bot as Client
+from arumughan.filters import command, other_filters
+from arumughan.queues import QUEUE, add_to_queue
+from arumughan.main import call_py, Test as user, call_py2, call_py3, call_py4, call_py5
+from arumughan.utils import bash
+from arumughan.main import bot as Client
 from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pytgcalls import StreamType
 from pytgcalls.types.input_stream import AudioPiped
 from youtubesearchpython import VideosSearch
-from Zaid.Database.clientdb import * 
-from Zaid.Client.assistant import get_assistant_details, random_assistant
-from Zaid.Client.Joiner import AssistantAdd
-from Zaid.Database.active import *
-from Zaid.Database.dbchat import add_served_chat, is_served_chat
+from arumughan.Database.clientdb import * 
+from arumughan.Client.assistant import get_assistant_details, random_assistant
+from arumughan.Client.Joiner import AssistantAdd
+from arumughan.Database.active import *
+from arumughan.Database.dbchat import add_served_chat, is_served_chat
 
 import yt_dlp
 import yt_dlp
