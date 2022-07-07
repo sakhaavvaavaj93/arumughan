@@ -273,14 +273,12 @@ async def play(c: Client, m: Message):
                     ]
                 )
             )
-        else:
-            suhu = await m.reply_text(
-        f"**Downloading**\n\n0% ▓▓▓▓▓▓▓▓▓▓▓▓ 100%"
-    )
             query = m.text.split(None, 1)[1]
             search = ytsearch(query)
             if search == 0:
-                await suhu.edit("💬 **no results found.**")
+                await reply_text(
+                f"**no search found**"
+            )
             else:
                 songname = search[0]
                 title = search[0]
