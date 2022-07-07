@@ -259,7 +259,7 @@ async def play(c: Client, m: Message):
             except Exception as e:
                 await suhu.delete()
                 await m.reply_text(f"🚫 error:\n\n» {e}")
-            else:
+       else:
             if len(m.command) < 2:
             await m.reply_photo(
                      photo=f"{CMD_IMG}",
@@ -273,7 +273,7 @@ async def play(c: Client, m: Message):
                     ]
                 )
             )
-            else:
+       else:
                 suhu = await m.reply_text(f"**Downloading**\n\n0% ▓▓▓▓▓▓▓▓▓▓▓▓ 100%")
                 query = m.text.split(None, 1)[1]
                 search = ytsearch(query)
