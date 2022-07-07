@@ -1,4 +1,4 @@
-# © SUPERIOR_BOTS
+# @kk_kovilakam
 import io
 from os import path
 from typing import Callable
@@ -298,9 +298,8 @@ async def play(c: Client, m: Message):
                             await add_active_chat(chat_id)
                             add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
                             await suhu.delete()
-                            requester = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
                             await m.reply_text(
-                                f"🏷 **Name:** [{songname[:22]}]({url})",
+                                f"🏷 **𝚙𝚕𝚊𝚢𝚒𝚗𝚐**[{songname[:22]}]",
                             )
                         except Exception as ep:
                             await suhu.delete()
