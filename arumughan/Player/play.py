@@ -250,8 +250,8 @@ async def play(c: Client, m: Message):
                 await add_active_chat(chat_id)
                 add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
-        else:
-        if len(m.command) < 2:
+          else:
+          if len(m.command) < 2:
          await m.reply_photo(
                      photo=f"{CMD_IMG}",
                     caption="💬**Usage: /play Give a Title Song To Play Music or /vplay for Video Play**"
