@@ -263,7 +263,7 @@ async def play(c: Client, m: Message):
                 await m.reply_text(f"🚫 error:\n\n» {e}")
         else:
             if len(m.command) < 2:
-            await m.reply_photo(
+                await m.reply_photo(
                      photo=f"{CMD_IMG}",
                     caption="💬**Usage: /play Give a Title Song To Play Music or /vplay for Video Play**"
                     ,
