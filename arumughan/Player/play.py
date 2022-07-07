@@ -205,6 +205,9 @@ async def play(c: Client, m: Message):
             if chat_id in QUEUE:
                 pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
+                await m.reply_text(
+                    f"💡 **Track added to queue »** `{pos}`"
+                )
             else:
              try:
                 if int(assistant) == 1:
@@ -250,6 +253,26 @@ async def play(c: Client, m: Message):
                 await add_active_chat(chat_id)
                 add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
+                await m.reply_text(
+                    f"🎶[{songname}]({link})🎻"
+                  )
+            except Exception as e:
+                await suhu.delete()
+                await m.reply_text(f"🚫 error:\n\n» {e}")
+            else:
+            if len(m.command) < 2:
+            await m.reply_photo(
+                     photo=f"{CMD_IMG}",
+                    caption="💬**Usage: /play Give a Title Song To Play Music or /vplay for Video Play**"
+                    ,
+                      reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton("🗑 Close", callback_data="cls")
+                        ]
+                    ]
+                )
+            )
             else:
                 suhu = await m.reply_text(f"**Downloading**\n\n0% ▓▓▓▓▓▓▓▓▓▓▓▓ 100%")
                 query = m.text.split(None, 1)[1]
@@ -276,6 +299,9 @@ async def play(c: Client, m: Message):
                     if chat_id in QUEUE:
                         pos = add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
                         await suhu.delete()
+                        await m.reply_text(
+                            f"🥃**Track added to queue »** `{pos}`"
+                        )
                     else:
                         try:
                             await suhu.edit(
@@ -332,4 +358,11 @@ async def play(c: Client, m: Message):
                             await add_active_chat(chat_id)
                             add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
                             await suhu.delete()
+                            await m.reply_text(
+                                f"🎶 [{songname[:22]}]({url}) 🥀"
+                            )
+                        except Exception as ep:
+                            await suhu.delete()
+                            await m.reply_text(f"💬 error: `{ep}`")
+
                         
