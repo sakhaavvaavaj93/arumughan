@@ -261,7 +261,7 @@ async def play(c: Client, m: Message):
              except Exception as e:
                 await suhu.delete()
                 await m.reply_text(f"🚫 error:\n\n» {e}")
-       else:
+        else:
             if len(m.command) < 2:
             await m.reply_photo(
                      photo=f"{CMD_IMG}",
