@@ -4,7 +4,7 @@ from pyrogram import filters
 from arumughan.main import bot as Client
 from arumughan.decorators import authorized_users_only
 from arumughan.filters import command, other_filters
-from arumughan.sira import queue, clear_queue
+from arumughan.queues import queue, clear_queue
 from arumughan.utils import skip_current_song, skip_item
 
 from config import BOT_USERNAME, GROUP_SUPPORT, SKIP_IMG, UPDATES_CHANNEL
