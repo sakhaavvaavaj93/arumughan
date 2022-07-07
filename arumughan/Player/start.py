@@ -183,3 +183,4 @@ async def help(client: Client, message: Message):
                 InlineKeyboardButton("✘ ᴀᴅᴍɪɴꜱ", call_back_data="azminss"),
                 InlineKeyboardButton("✘ ᴜꜱᴇʀꜱ", callback_data="users"),
             ],
+          ]
