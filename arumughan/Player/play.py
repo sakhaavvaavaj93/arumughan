@@ -249,6 +249,7 @@ async def play(c: Client, m: Message):
                    )
                 await add_active_chat(chat_id)
                 add_to_queue(chat_id, songname, dl, link, "Audio", 0)
+                await suhu.delete()
             else:
                 suhu = await m.reply_text(f"**Downloading**\n\n0% ▓▓▓▓▓▓▓▓▓▓▓▓ 100%")
                 query = m.text.split(None, 1)[1]
