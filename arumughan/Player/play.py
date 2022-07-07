@@ -1,4 +1,3 @@
-# © SUPERIOR_BOTS
 import io
 from os import path
 from typing import Callable
@@ -211,7 +210,6 @@ async def play(c: Client, m: Message):
          #           reply_markup=keyboard,
         #        )
         #    else:
-             try:
                 if int(assistant) == 1:
                    await call_py.join_group_call(
                        chat_id,
@@ -279,7 +277,7 @@ async def play(c: Client, m: Message):
                     ]
                 )
             )
-        else:
+     else:
             suhu = await m.reply_text(
         f"**Downloading**"
     )
