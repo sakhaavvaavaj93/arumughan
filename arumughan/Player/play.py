@@ -276,7 +276,7 @@ async def play(c: Client, m: Message):
             query = m.text.split(None, 1)[1]
             search = ytsearch(query)
             if search == 0:
-                await reply_text(
+                await m.reply_text(
                 f"**no search found**"
             )
             else:
