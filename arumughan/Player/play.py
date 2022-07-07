@@ -254,12 +254,13 @@ async def play(c: Client, m: Message):
                 add_to_queue(chat_id, songname, dl, link, "Audio", 0)
                 await suhu.delete()
                 await m.reply_text(
-                    f"🎶[{songname}]({link})🎻"
-                  )
-                  except Exception as e:
-                    await suhu.delete()
-                    await m.reply_text(f"🚫 error:
-                      \n\n» {e}")
+                    
+                    f"🏷 **Name:** [{songname}]({link})\n💭 **Chat:** `{chat_id}`\n💡 **Status:** `Playing`\n🎧 **Request by:** {requester}\n📹 **Stream type:** `Music`",
+                    
+                )
+             except Exception as e:
+                await suhu.delete()
+                await m.reply_text(f"🚫 error:\n\n» {e}")
        else:
             if len(m.command) < 2:
             await m.reply_photo(
