@@ -1,3 +1,3 @@
 git clone $REPO_URL https://github.com/sakhaavvaavaj93/arumughan.git
 cd https://github.com/sakhaavvaavaj93/arumughan.git
-python3 start
+python3 arumughan
