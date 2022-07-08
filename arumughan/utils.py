@@ -1,7 +1,7 @@
 import os
+from config import NEXT_IMG
 import asyncio
 from arumughan.main import bot, call_py, call_py2, call_py3, call_py4, call_py5
-from config import NEXT_IMG
 from pytgcalls.types import Update
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from arumughan.queues import QUEUE, clear_queue, get_queue, pop_an_item
